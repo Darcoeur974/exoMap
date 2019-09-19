@@ -6,8 +6,6 @@ const iconISS = L.icon({
     iconAnchor: [50, 20],
 });
 
-let s = 0;
-
 const maCarte = L.map('maCarte').setView([0, 0], 1);
 const attribution = '<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>';
 const tiles = 'https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=yLBrA868khjKwdFFA6Ih';
@@ -39,4 +37,16 @@ function actualisation() {
     setTimeout(() => {
         console.log("bien traiter!");
     }, 1000);
+}
+currentLocation();
+
+function currentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((function(position) {
+            var markertest = L.marker([position.coords.latitude, position.coords.longitude]).addTo(maCarte);
+            markertest.bindPopup("Ma position :<br> Latitude : " + position.coords.latitude + ',<br>Longitude ' + position.coords.longitude).openPopup();
+        }));
+    } else {
+        alert("La géolocalisation n'est pas supportée par ce navigateur.");
+    }
 }
