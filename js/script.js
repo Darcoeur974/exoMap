@@ -8,7 +8,7 @@ const iconISS = L.icon({
 
 const maCarte = L.map('maCarte').setView([0, 0], 1);
 const attribution = '<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>';
-const tiles = 'https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=yLBrA868khjKwdFFA6Ih';
+const tiles = 'https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=yLBrA868khjKwdFFA6Ih';
 const mapTiles = L.tileLayer(tiles, { attribution });
 mapTiles.addTo(maCarte);
 
@@ -23,7 +23,6 @@ function currentLocation() {
 
             document.getElementById('lat').textContent = latitude;
             document.getElementById('lon').textContent = longitude;
-            console.log("ça marche?")
         }));
     } else {
         alert("La géolocalisation n'est pas supportée par ce navigateur.");
