@@ -23,6 +23,12 @@ function currentLocation() {
 
             document.getElementById('lat').textContent = latitude;
             document.getElementById('lon').textContent = longitude;
+
+            let valeurAncienne = document.getElementById('ancienneLoca');
+
+            let date = new Date();
+
+            valeurAncienne.innerHTML += '<p>' + 'Date : le ' + date.getDay() + '/' + date.getMonth() + ' à ' + date.getHours() + ' : ' + date.getMinutes() + ', ' + ' latitude : ' + latitude + ', longitude : ' + longitude + '</p>';
         }));
     } else {
         alert("La géolocalisation n'est pas supportée par ce navigateur.");
