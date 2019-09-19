@@ -12,41 +12,34 @@ const tiles = 'https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=yLBrA868
 const mapTiles = L.tileLayer(tiles, { attribution });
 mapTiles.addTo(maCarte);
 
-const marker = L.marker([0, 0], { icon: iconISS }).addTo(maCarte);
+function currentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((function(position) {
+            let markerMaPosition = L.marker([position.coords.latitude, position.coords.longitude]).addTo(maCarte);
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude
 
-async function recuperateurISS() {
-    const reponse = await fetch(api_url);
-    const donee = await reponse.json();
-    const { latitude, longitude } = donee;
+            markerMaPosition.bindPopup("Ma position :<br> Latitude : " + latitude + ',<br>Longitude ' + longitude).openPopup();
 
-    marker.setLatLng([latitude, longitude]);
-
-    document.getElementById('lat').textContent = latitude;
-    document.getElementById('lon').textContent = longitude;
+            document.getElementById('lat').textContent = latitude;
+            document.getElementById('lon').textContent = longitude;
+            console.log("ça marche?")
+        }));
+    } else {
+        alert("La géolocalisation n'est pas supportée par ce navigateur.");
+    }
 }
 
-setInterval(recuperateurISS, 90000);
+setInterval(currentLocation, 90000);
 
 const actualiser = document.getElementById("actualise");
 
 actualiser.addEventListener("click", actualisation);
 
 function actualisation() {
-    recuperateurISS();
+    currentLocation();
     console.log("en cour de traitement...");
     setTimeout(() => {
         console.log("bien traiter!");
     }, 1000);
-}
-currentLocation();
-
-function currentLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((function(position) {
-            var markertest = L.marker([position.coords.latitude, position.coords.longitude]).addTo(maCarte);
-            markertest.bindPopup("Ma position :<br> Latitude : " + position.coords.latitude + ',<br>Longitude ' + position.coords.longitude).openPopup();
-        }));
-    } else {
-        alert("La géolocalisation n'est pas supportée par ce navigateur.");
-    }
 }
