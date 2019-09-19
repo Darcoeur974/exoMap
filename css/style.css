@@ -1,0 +1,23 @@
+#maCarte {
+    height: 500px;
+    width: 500px;
+}
+
+span {
+    animation-duration: 2s;
+    animation-name: color;
+    color: green;
+}
+
+@keyframes color {
+    from {
+        color: red;
+    }
+    to {
+        color: green;
+    }
+}
+
+button {
+    margin: 5px;
+}
